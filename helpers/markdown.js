@@ -12,8 +12,11 @@ var marked = require('marked');
  module.exports = function(options) {
    var renderer = new marked.Renderer();
 
-   renderer.list = function(text) {
-     return '<ul>' + text.replace(/<li>(<input(checked|[disabled="\s])+type="checkbox")/g, '<li class="task-item">$1') + '</ul>';
+   renderer.list = function(text, ordered) {
+     if (!ordered) {
+       return '<ul>' + text.replace(/<li>(<input(checked|[disabled="\s])+type="checkbox")/g, '<li class="task-item">$1') + '</ul>';
+     }
+     return '<ol>' + text + '</ol>'
    };
 
    renderer.paragraph = function(text) {
