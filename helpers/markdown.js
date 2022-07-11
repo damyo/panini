@@ -20,7 +20,7 @@ var marked = require('marked');
    };
 
    renderer.paragraph = function(text) {
-     return text.replace(/::: ?(info|warning|danger|success) ?(\S+)?\s?([\S\s]*?):::/g, '<div class="note $1"><p class="title" data-title="$1">$2</p><p>$3</p></div>');
+     return text.replace(/::: ?(info|warning|danger|success) ?([^\n]+)?\s?([\S\s]*?):::/g, '<div class="note $1"><p class="title" data-title="$1">$2</p><p>$3</p></div>');
    };
 
    renderer.code = function(code, language) {
