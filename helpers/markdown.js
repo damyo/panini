@@ -9,6 +9,7 @@ var marked = require('marked');
  * {{#markdown}}Welcome to [zombo.com](http://zombo.com){{/markdown}}
  * @returns The Markdown inside the helper, converted to HTML.
  */
+
  module.exports = function(options) {
    var renderer = new marked.Renderer();
 
@@ -24,7 +25,7 @@ var marked = require('marked');
    };
 
    renderer.code = function(code, language) {
-     if (typeof language === 'undefined') language = 'html';
+     if (typeof language === 'undefined') return code
 
      language = hljs.getLanguage(language) ? language : 'html';
 
@@ -34,5 +35,11 @@ var marked = require('marked');
      return output;
    };
 
-   return marked(options.fn(this), { renderer });
+   var result = marked(options.fn(this), { renderer });
+   var source = result.match(/<script([\S\s]*?)>([\S\s]*?)<\/script>/);
+   if (source) {
+     result = result.replace(source[2], source[2].replace(/&#39;/g, "'").replace(/&#34;/g, '"').replace(/&gt;/g, '>').replace(/&lt;/g, '<'));
+   }
+
+   return result;
  }
