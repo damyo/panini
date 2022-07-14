@@ -30,7 +30,7 @@ var marked = require('marked');
      language = hljs.getLanguage(language) ? language : 'html';
 
      var renderedCode = hljs.highlight(code, { language }).value;
-     var output = `<div class="code-example"><pre><code class="${language} hljs">${renderedCode}</code></pre></div>`;
+     var output = `<div class="code-example"><pre><code class="${language} hljs">${renderedCode.replace(/\n/g, '<br class="break-fixed">')}</code></pre></div>`;
 
      return output;
    };
