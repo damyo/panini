@@ -25,7 +25,7 @@ var marked = require('marked');
    };
 
    renderer.code = function(code, language) {
-     if (typeof language === 'undefined') language = 'html';
+     if (typeof language === 'undefined') return code;
 
      language = hljs.getLanguage(language) ? language : 'html';
 
